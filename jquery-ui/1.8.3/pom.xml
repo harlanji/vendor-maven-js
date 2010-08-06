@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+
+    <groupId>com.soashable.vendor.jquery</groupId>
+    <artifactId>jquery-ui</artifactId>
+    <packaging>javascript</packaging>
+	<version>1.8.3</version>
+
+	<parent>
+		<groupId>com.soashable.vendor.jquery</groupId>
+		<artifactId>jquery-ui-master</artifactId>
+		<version>1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+    <name>jQuery UI</name>
+
+
+    <dependencies>
+		<dependency>
+			<groupId>com.soashable.vendor.jquery</groupId>
+			<artifactId>jquery</artifactId>
+			<type>javascript</type>
+			<version>1.4.2</version>
+		</dependency>
+    </dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<id>get-vendor-code</id>
+						<phase>initialize</phase>
+						<configuration>
+							<tasks>
+								<mkdir dir="vendor"/>
+								<exec executable="git">
+									<arg value="clone"/>
+									<arg value="http://github.com/jquery/jquery-ui.git"/>
+									<arg value="vendor"/>
+								</exec>
+								<exec executable="git" dir="vendor">
+									<arg value="checkout"/>
+									<arg value="-b"/>
+									<arg value="${version}"/>
+								</exec>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>build-vendor-code"</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<tasks>
+								<!-- NOTE: minify doesn't work because the basedir 
+										of the build file won't let itself be 'vendor', but
+									 	rather it ends up being '.'... I've spent a while trying 
+										to fix it but haven't been able to. we don't use minified
+										stuff anyway. -->
+								<ant antfile="build.xml" useNativeBasedir="true" dir="vendor/build" inheritAll="false" inheritRefs="false">
+									<target name="concatenate"/>
+									<target name="copy"/>
+									
+<!--
+prepend header doesn't work without minify
+
+									<target name="replace-version"/>
+									<target name="prepend-header"/>
+-->
+								</ant>
+
+								<mkdir dir="src/main/javascript"/>
+								<copy todir="src/main/javascript">
+									<fileset dir="vendor/build/dist/jquery-ui-1.9pre/ui">
+										<!-- unconcatted source -->
+										<include name="i18n/jquery.*.js"/>
+										<include name="jquery.*.js"/>
+
+										<!-- concatted source. TODO make an assembly for plugin use. -->
+										<include name="jquery-ui.js"/>
+										<include name="i18n/jquery-ui-i18n.js"/>
+									</fileset>
+								</copy>
+
+								<mkdir dir="src/main/resources"/>
+								<copy todir="src/main/resources">
+									<fileset dir="vendor/build/dist/jquery-ui-1.9pre">
+										<include name="themes/**"/>
+									</fileset>
+								</copy>
+								
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>clean-src</id>
+						<phase>clean</phase>
+						<configuration>
+							<tasks>
+								<delete dir="src"/>
+								<delete dir="vendor"/>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+
