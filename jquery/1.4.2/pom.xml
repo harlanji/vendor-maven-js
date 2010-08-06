@@ -19,8 +19,8 @@
 
 
     <dependencies>
-    </dependencies>
 
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -33,17 +33,22 @@
 						<phase>initialize</phase>
 						<configuration>
 							<tasks>
-								<mkdir dir="vendor"/>
-								<exec executable="git">
-									<arg value="clone"/>
-									<arg value="http://github.com/jquery/jquery.git"/>
-									<arg value="vendor"/>
-								</exec>
-								<exec executable="git" dir="vendor">
-									<arg value="checkout"/>
-									<arg value="-b"/>
-									<arg value="${version}"/>
-								</exec>
+								<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.compile.classpath"/>
+								<available file="vendor" type="dir" property="vendor.initialized"/>
+
+								<if><not><isset property="vendor.initialized"/></not><then>
+									<mkdir dir="vendor"/>
+									<exec executable="git">
+										<arg value="clone"/>
+										<arg value="http://github.com/jquery/jquery.git"/>
+										<arg value="vendor"/>
+									</exec>
+									<exec executable="git" dir="vendor">
+										<arg value="checkout"/>
+										<arg value="-b"/>
+										<arg value="${version}"/>
+									</exec>
+								</then></if>
 							</tasks>
 						</configuration>
 						<goals>
@@ -55,12 +60,17 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<tasks>
-								<exec executable="make" dir="vendor">
-									<arg value="all"/>
-								</exec>
+								<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.compile.classpath"/>
+								<available file="src" type="dir" property="src.initialized"/>
 
-								<mkdir dir="src/main/javascript"/>
-								<copy file="vendor/dist/jquery.js" todir="src/main/javascript"/>
+								<if><not><isset property="src.initialized"/></not><then>
+									<exec executable="make" dir="vendor">
+										<arg value="all"/>
+									</exec>
+
+									<mkdir dir="src/main/javascript"/>
+									<copy file="vendor/dist/jquery.js" todir="src/main/javascript"/>
+								</then></if>
 							</tasks>
 						</configuration>
 						<goals>

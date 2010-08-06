@@ -31,17 +31,22 @@
 						<phase>initialize</phase>
 						<configuration>
 							<tasks>
-								<mkdir dir="vendor"/>
-								<exec executable="git">
-									<arg value="clone"/>
-									<arg value="http://github.com/metajack/strophejs.git"/>
-									<arg value="vendor"/>
-								</exec>
-								<exec executable="git" dir="vendor">
-									<arg value="checkout"/>
-									<arg value="-b"/>
-									<arg value="release-1.0"/>
-								</exec>
+								<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.compile.classpath"/>
+								<available file="vendor" type="dir" property="vendor.initialized"/>
+
+								<if><not><isset property="vendor.initialized"/></not><then>
+									<mkdir dir="vendor"/>
+									<exec executable="git">
+										<arg value="clone"/>
+										<arg value="http://github.com/metajack/strophejs.git"/>
+										<arg value="vendor"/>
+									</exec>
+									<exec executable="git" dir="vendor">
+										<arg value="checkout"/>
+										<arg value="-b"/>
+										<arg value="release-1.0"/>
+									</exec>
+								</then></if>
 							</tasks>
 						</configuration>
 						<goals>
@@ -53,17 +58,22 @@
 						<phase>generate-sources</phase>
 						<configuration>
 							<tasks>
-								<exec executable="make" dir="vendor">
-									<arg value="all"/>
-								</exec>
+								<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.compile.classpath"/>
+								<available file="src" type="dir" property="src.initialized"/>
 
-								<mkdir dir="src/main/javascript"/>
-								<copy todir="src/main/javascript">
-									<fileset dir="vendor">
-										<include name="strophe.js"/>
-										<include name="plugins/*.js"/>
-									</fileset>
-								</copy>
+								<if><not><isset property="src.initialized"/></not><then>
+									<exec executable="make" dir="vendor">
+										<arg value="all"/>
+									</exec>
+
+									<mkdir dir="src/main/javascript"/>
+									<copy todir="src/main/javascript">
+										<fileset dir="vendor">
+											<include name="strophe.js"/>
+											<include name="plugins/*.js"/>
+										</fileset>
+									</copy>
+								</then></if>
 							</tasks>
 						</configuration>
 						<goals>
