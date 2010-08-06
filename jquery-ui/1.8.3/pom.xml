@@ -53,6 +53,10 @@
 										<arg value="-b"/>
 										<arg value="${version}"/>
 									</exec>
+
+									<copy todir="vendor" overwrite="true">
+										<fileset dir="vendor-override" includes="**"/>
+									</copy>
 								</then></if>
 							</tasks>
 						</configuration>
@@ -76,10 +80,10 @@
 											to fix it but haven't been able to. we don't use minified
 											stuff anyway. -->
 									<ant antfile="build.xml" useNativeBasedir="true" dir="vendor/build" inheritAll="false" inheritRefs="false">
-										<target name="concatenate"/>
+										<!--<target name="concatenate"/>
 										<target name="copy"/>
 									
-	<!--
+	
 	prepend header doesn't work without minify
 
 										<target name="replace-version"/>
