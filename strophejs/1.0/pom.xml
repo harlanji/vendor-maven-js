@@ -8,13 +8,20 @@
 	<version>1.0</version>
 
 	<parent>
-		<groupId>com.soashable.vendor.strophejs</groupId>
-		<artifactId>strophejs-master</artifactId>
+		<groupId>com.soashable.vendor</groupId>
+		<artifactId>vendor-js</artifactId>
 		<version>1.0</version>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
     <name>Strophe JS</name>
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>MIT-LICENSE.txt</url>
+		</license>
+	</licenses>
+
 
     <dependencies>
     </dependencies>

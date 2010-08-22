@@ -8,14 +8,19 @@
 	<version>1.0</version>
 
 	<parent>
-		<groupId>com.soashable.vendor.rfk</groupId>
-		<artifactId>jquery-xmlns-master</artifactId>
+		<groupId>com.soashable.vendor</groupId>
+		<artifactId>vendor-js</artifactId>
 		<version>1.0</version>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
     <name>jQuery xmlns Plugin</name>
-
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>MIT-LICENSE.txt</url>
+		</license>
+	</licenses>
 
 	<properties>
 		<repo.url>http://github.com/rfk/jquery-xmlns.git</repo.url>
@@ -23,6 +28,12 @@
 	</properties>
 
     <dependencies>
+		<dependency>
+			<groupId>com.soashable.vendor.jquery</groupId>
+			<artifactId>jquery</artifactId>
+			<type>javascript</type>
+			<version>[1.4.0, 1.5.0)</version>
+		</dependency>
     </dependencies>
 
 

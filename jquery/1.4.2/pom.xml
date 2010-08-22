@@ -8,14 +8,19 @@
 	<version>1.4.2</version>
 
 	<parent>
-		<groupId>com.soashable.vendor.jquery</groupId>
-		<artifactId>jquery-master</artifactId>
+		<groupId>com.soashable.vendor</groupId>
+		<artifactId>vendor-js</artifactId>
 		<version>1.0</version>
-		<relativePath>../pom.xml</relativePath>
+		<relativePath>../../pom.xml</relativePath>
 	</parent>
 
     <name>jQuery</name>
-
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>MIT-LICENSE.txt</url>
+		</license>
+	</licenses>
 
 
     <dependencies>
