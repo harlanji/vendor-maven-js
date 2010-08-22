@@ -1,0 +1,48 @@
+<target name="initialize">
+	<available file="vendor" type="dir" property="vendor.initialized"/>
+
+	<if><not><isset property="vendor.initialized"/></not><then>
+		<mkdir dir="vendor"/>
+		<exec executable="git">
+			<arg value="clone"/>
+			<arg value="http://github.com/rfk/jquery-xmlns.git"/>
+			<arg value="vendor"/>
+		</exec>
+		<exec executable="git" dir="vendor">
+			<arg value="checkout"/>
+			<arg value="-b"/>
+			<arg value="master"/>
+		</exec>
+	</then></if>
+</target>
+
+<target name="generate-src">
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.compile.classpath"/>
+	<available file="src" type="dir" property="src.initialized"/>
+
+	<if><not><isset property="src.initialized"/></not><then>
+
+		<mkdir dir="src/main/javascript"/>
+		<copy todir="src/main/javascript">
+			<fileset dir="vendor">
+				<include name="*.js"/>
+			</fileset>
+		</copy>
+
+	</then></if>
+</target>
+
+
+<target name="clean">
+	<delete dir="src"/>
+	<delete dir="vendor"/>
+</target>
+
+<target name="package" depends="generate-src">
+
+
+</target>
+
+<target name="deploy" depends="package">
+
+</target>
