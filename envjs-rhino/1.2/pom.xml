@@ -1,0 +1,96 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+
+    <groupId>com.soashable.vendor.envjs</groupId>
+    <artifactId>envjs-rhino</artifactId>
+    <packaging>javascript</packaging>
+	<version>1.2</version>
+
+	<parent>
+		<groupId>com.soashable.vendor</groupId>
+		<artifactId>vendor-js</artifactId>
+		<version>1.0</version>
+		<relativePath>../../pom.xml</relativePath>
+	</parent>
+
+    <name>EnvJS Rhino</name>
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>MIT-LICENSE.txt</url>
+		</license>
+	</licenses>
+
+	<properties>
+		<download.url>http://www.envjs.com/dist/env.rhino.1.2.js</download.url>
+	</properties>
+
+    <dependencies>
+    </dependencies>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<id>get-vendor-code</id>
+						<phase>initialize</phase>
+						<configuration>
+							<tasks>
+								<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.compile.classpath"/>
+								<available file="vendor" type="dir" property="vendor.initialized"/>
+
+								<if><not><isset property="vendor.initialized"/></not><then>
+									<mkdir dir="vendor"/>
+									<get src="${download.url}" dest="vendor/env.rhino.js"/>
+								</then></if>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>build-vendor-code</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<tasks>
+								<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.compile.classpath"/>
+								<available file="src" type="dir" property="src.initialized"/>
+
+								<if><not><isset property="src.initialized"/></not><then>
+									<mkdir dir="src/main/javascript"/>
+									<copy todir="src/main/javascript">
+										<fileset dir="vendor">
+											<include name="*.js"/>
+										</fileset>
+									</copy>
+								</then></if>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>clean-src</id>
+						<phase>clean</phase>
+						<configuration>
+							<tasks>
+								<delete dir="src"/>
+								<delete dir="vendor"/>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
