@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.soashable.vendor</groupId>
+	<groupId>com.devspan.vendor</groupId>
 	<artifactId>vendor-js</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>Vendor Javascript Libraries</name>
+
+	<parent>
+		<groupId>com.devspan.mojo.javascript</groupId>
+		<artifactId>javascript-project</artifactId>
+		<version>0.9.1</version>
+	</parent>
 
 	<description>
 		Javascript libraries of vendors who do not yet maintain Maven artifacts.
 	</description>
     <url>http://github.com/harlanji/vendor-maven-js</url>
+
 	<licenses>
 		<license>
 			<name>MIT</name>
 			<url>MIT-LICENSE.txt</url>
 		</license>
 	</licenses>
-
-	<modules>
-	</modules>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo.javascript</groupId>
-				<artifactId>javascript-maven-plugin</artifactId>
-				<extensions>true</extensions>
-			</plugin>
-		</plugins>
-	</build>
-
 
 	<developers>
 		<developer>
@@ -45,69 +38,6 @@
 		<developerConnection>scm:git:git://github.com/harlanji/vendor-maven-js.git</developerConnection>
         <url>http://github.com/harlanji/vendor-maven-js</url>
 	</scm>
-
-	<dependencies>
-		<dependency>
-			<groupId>ant-contrib</groupId>
-			<artifactId>ant-contrib</artifactId>
-			<version>20020829</version>
-			<scope>compile</scope>
-		</dependency>
-	</dependencies>
-
-
-
-	<profiles>
-		<profile>
-			<id>release-sonatype-oss</id>
-
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		
-			<distributionManagement>
-				<repository>
-					<id>sonatype-oss-staging</id>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-				</repository>
-				<snapshotRepository>
-					<id>sonatype-oss-snapshots</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-				</snapshotRepository>
-			</distributionManagement>
-		</profile>
-
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-<!--
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
--->
-				<activeByDefault>true</activeByDefault>
-			</activation>
-
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 </project>
 
