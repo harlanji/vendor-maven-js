@@ -39,5 +39,14 @@
         <url>http://github.com/harlanji/vendor-maven-js</url>
 	</scm>
 
+	<dependencies>
+		<dependency>
+			<groupId>ant-contrib</groupId>
+			<artifactId>ant-contrib</artifactId>
+			<version>20020829</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
 </project>
 
