@@ -18,13 +18,6 @@
 	</description>
     <url>http://github.com/harlanji/vendor-maven-js</url>
 
-	<licenses>
-		<license>
-			<name>MIT</name>
-			<url>MIT-LICENSE.txt</url>
-		</license>
-	</licenses>
-
 	<developers>
 		<developer>
 			<id>harlanji</id>
