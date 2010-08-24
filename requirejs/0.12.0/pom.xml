@@ -2,19 +2,20 @@
     <modelVersion>4.0.0</modelVersion>
     
 
-    <groupId>com.soashable.vendor.requirejs</groupId>
+    <groupId>com.devspan.vendor.requirejs</groupId>
     <artifactId>requirejs</artifactId>
     <packaging>javascript</packaging>
 	<version>0.12.0</version>
 
 	<parent>
-		<groupId>com.soashable.vendor</groupId>
+		<groupId>com.devspan.vendor</groupId>
 		<artifactId>vendor-js</artifactId>
-		<version>1.0</version>
-		<relativePath>../../pom.xml</relativePath>
+		<version>1.0.3</version>
 	</parent>
 
-    <name>RequireJS And Extensions</name>
+    <name>RequireJS</name>
+	<description>RequireJS</description>
+
 	<licenses>
 		<license>
 			<name>MIT</name>

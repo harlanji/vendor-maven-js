@@ -2,19 +2,20 @@
     <modelVersion>4.0.0</modelVersion>
     
 
-    <groupId>com.soashable.vendor.jquery</groupId>
+    <groupId>com.devspan.vendor.jquery</groupId>
     <artifactId>jquery</artifactId>
     <packaging>javascript</packaging>
 	<version>1.4.2</version>
 
 	<parent>
-		<groupId>com.soashable.vendor</groupId>
+		<groupId>com.devspan.vendor</groupId>
 		<artifactId>vendor-js</artifactId>
-		<version>1.0</version>
-		<relativePath>../../pom.xml</relativePath>
+		<version>1.0.3</version>
 	</parent>
 
     <name>jQuery</name>
+	<description>jQuery</description>
+
 	<licenses>
 		<license>
 			<name>MIT</name>

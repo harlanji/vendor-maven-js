@@ -2,19 +2,20 @@
     <modelVersion>4.0.0</modelVersion>
     
 
-    <groupId>com.soashable.vendor.rfk</groupId>
+    <groupId>com.devspan.vendor.rfk</groupId>
     <artifactId>jquery-xmlns</artifactId>
     <packaging>javascript</packaging>
 	<version>1.0</version>
 
 	<parent>
-		<groupId>com.soashable.vendor</groupId>
+		<groupId>com.devspan.vendor</groupId>
 		<artifactId>vendor-js</artifactId>
-		<version>1.0</version>
-		<relativePath>../../pom.xml</relativePath>
+		<version>1.0.3</version>
 	</parent>
 
     <name>jQuery xmlns Plugin</name>
+	<description>jQuery xmlns Plugin</description>
+
 	<licenses>
 		<license>
 			<name>MIT</name>
@@ -29,7 +30,7 @@
 
     <dependencies>
 		<dependency>
-			<groupId>com.soashable.vendor.jquery</groupId>
+			<groupId>com.devspan.vendor.jquery</groupId>
 			<artifactId>jquery</artifactId>
 			<type>javascript</type>
 			<version>[1.4.0, 1.5.0)</version>
